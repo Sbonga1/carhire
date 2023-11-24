@@ -1,0 +1,71 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Car>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div style="padding:5%;padding-top:2%">
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mileage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th> <th>
+                @Html.DisplayNameFor(model => model.FuelAmt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DistPrice)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mileage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td><td>
+                    @Html.DisplayFor(modelItem => item.FuelAmt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DistPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CarId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CarId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CarId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

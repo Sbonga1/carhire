@@ -1,0 +1,227 @@
+﻿@model IEnumerable<CarRentalSystem.Models.CarInspection>
+@using CarRentalSystem.Models
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    
+    ViewBag.Title = "Index";
+}
+
+
+<style>
+
+    /* Style for the modal overlay */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    /* Style for the modal content */
+    .modal-content {
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%); /* Adjust the translateY value as needed */
+        padding: 20px;
+        max-width: 50%; /* Adjust the maximum width as needed */
+        max-height: 80%; /* Adjust the maximum height as needed */
+        overflow-y: auto; /* Enable scrolling if the content overflows */
+    }
+
+    /* Style for the close button */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Add additional styles for your modal content, buttons, and other elements as needed */
+    /* Customize fonts, colors, margins, padding, etc. */
+
+    /* Style for buttons within the modal */
+    .modal-content button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    /* Style for modal headings and text */
+    .modal-content h2 {
+        text-align: center;
+    }
+
+    /* Style for images within the modal */
+    .modal-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+<div style="padding:5%;padding-top:2%">
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TireCondition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExteriorCondition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InteriorCondition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestDrive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+        {
+            
+
+        <div class="modal details-modal" data-doctor-id="@item.BookingId">
+            <div class="modal-content">
+                <div class="modal-header-left">
+                    <span class="close" id="close">&times;</span>
+                    <h2 style="text-align:center">Inspection Result</h2>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Time Travelled:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.timeTravelled
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Extra Time:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.Extratime
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>kilometres Travelled:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.kmtravelled
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Extra kilometres:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.extraKm
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:2%">
+                        <div class="col-md-6">
+                            <strong>Short fuel(l):</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.ShortFuel
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </div>
+                </div>
+            </div>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dents)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TireCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExteriorCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InteriorCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestDrive)
+            </td>
+            <td>
+
+                <a class="btn btn-primary open-detailsModal-btn" data-doctor-id="@item.BookingId"><i class="fa fa-list-alt"></i>MoreInfo</a>
+
+               
+            </td>
+        </tr>
+    }
+
+</table>
+</div>
+<script>
+    // Get all the buttons with the class "open-modal-btn"
+    var buttons = document.querySelectorAll(".open-detailsModal-btn");
+
+    // Attach click event listeners to each button
+    buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            var doctorId = button.getAttribute("data-doctor-id");
+            var modal = document.querySelector(".details-modal[data-doctor-id='" + doctorId + "']");
+            modal.style.display = "block";
+        });
+    });
+
+    // Get all the close buttons with the class "close"
+    var closeButtons = document.querySelectorAll(".close");
+
+    // Attach click event listeners to each close button
+    closeButtons.forEach(function (closeButton) {
+        closeButton.addEventListener("click", function () {
+            var modal = closeButton.closest(".modal");
+            modal.style.display = "none";
+        });
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target.classList.contains("modal")) {
+            event.target.style.display = "none";
+        }
+    };
+
+</script>

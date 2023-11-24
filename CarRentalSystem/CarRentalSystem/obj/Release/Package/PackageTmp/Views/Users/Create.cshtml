@@ -1,0 +1,75 @@
+﻿@using CarRentalSystem.Models
+@model User
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<div class="row" style="padding-left:100px">
+    @using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        if (TempData.ContainsKey("UserCreationSuccess"))
+        {
+            <div class="alert alert-success" id="notification">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @TempData["UserCreationSuccess"]
+            </div>
+        }
+        else if (TempData.ContainsKey("UserCreationError"))
+        {
+            <div class="alert alert-success" id="notification">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @TempData["UserCreationError"]
+            </div>
+        }
+        <hr class="hr" />
+
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Email</p>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style = "width:300px" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Role</p>
+                @Html.DropDownListFor(m => m.Role,
+               new SelectList(Enum.GetValues(typeof(RoleEnum))),
+               "Select Role", new { @class = "form-control", @style = "width:300px" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Name</p>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @style = "width:300px" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Password</p>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "width:300px" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Add User" class="btn btn-primary" style="width:300px" />
+            </div>
+        </div>
+
+
+    }
+</div>

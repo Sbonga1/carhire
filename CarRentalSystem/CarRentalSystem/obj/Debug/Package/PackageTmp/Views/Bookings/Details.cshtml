@@ -1,0 +1,146 @@
+﻿@model CarRentalSystem.Models.Booking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Car.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickupDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickupDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickupTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickupTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LicenseFile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LicenseFile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LicenseContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LicenseContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdFile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdFile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankStatName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankStatName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankStatContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankStatContent)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BookingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

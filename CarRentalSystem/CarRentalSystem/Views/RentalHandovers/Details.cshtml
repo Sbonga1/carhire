@@ -1,0 +1,74 @@
+﻿@model CarRentalSystem.Models.RentalHandover
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RentalHandover</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inspector.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inspector.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HandoverDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HandoverDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HandoverTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HandoverTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Signature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Signature)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HandoverID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

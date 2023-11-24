@@ -1,0 +1,100 @@
+﻿@model IEnumerable<CarRentalSystem.Models.AssignInspector>
+
+@{
+    ViewBag.Title = "MyAssignments";
+}
+
+
+
+
+<div style="padding:5%;padding-top:2%">
+<h2>@ViewBag.Title</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.PickupDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.PickupTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.ReturnDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.ReturnTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.PickupDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.PickupTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.ReturnTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @if (item.Status == "Assigned")
+                {
+                    <a onclick="location.href='@Url.Action(actionName: "Create", controllerName: "RentalHandovers", routeValues: new { bookId = item.BookingId, inspId = item.InspId,assId =item.AssInspId })'" class="btn btn-primary"><i class="fa fa-check"></i>Handover Vehicle</a>
+
+                }
+                else if (item.Status == "Vehicle-Handed")
+                {
+                    <a onclick="Return(@item.BookingId,@item.AssInspId)" class="btn btn-primary"><i class="fa fa-check"></i>Vehicle Returned</a>
+
+
+                }
+                else if (item.Status == "Vehicle-Returned")
+                {
+                    <a onclick="location.href='@Url.Action(actionName: "Create", controllerName: "CarInspections", routeValues: new { bookId = item.BookingId, assId = item.AssInspId })'" class="btn btn-primary"><i class="fa fa-check"></i>Vehicle Inspection</a>
+
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+    </div>
+<script>
+
+   function Return(id, assId) {
+    // User entered a reason
+    alertify.confirm('Car Return', 'Are you sure you want to Mark car as returned', function () {
+        // Pass both id and assId as parameters to the ReturnCar action in your controller
+        window.location.href = '@Url.Action("ReturnCar", "CarReturns")/' + id + '?assId=' + assId;
+    }, null);
+}
+
+
+
+
+</script>

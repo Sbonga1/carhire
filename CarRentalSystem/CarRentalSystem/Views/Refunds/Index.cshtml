@@ -1,0 +1,244 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Refund>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+
+    /* Style for the modal overlay */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    /* Style for the modal content */
+    .modal-content {
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%); /* Adjust the translateY value as needed */
+        padding: 20px;
+        max-width: 50%; /* Adjust the maximum width as needed */
+        max-height: 80%; /* Adjust the maximum height as needed */
+        overflow-y: auto; /* Enable scrolling if the content overflows */
+    }
+
+    /* Style for the close button */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Add additional styles for your modal content, buttons, and other elements as needed */
+    /* Customize fonts, colors, margins, padding, etc. */
+
+    /* Style for buttons within the modal */
+    .modal-content button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    /* Style for modal headings and text */
+    .modal-content h2 {
+        text-align: center;
+    }
+
+    /* Style for images within the modal */
+    .modal-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+<div style="padding:5%;padding-top:2%">
+
+    <h2>Index</h2>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking.Name)
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.RefundDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.RefundFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tobePaid)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+
+            <div class="modal details-modal" id="myModal">
+                <div class="modal-content">
+                    <div class="modal-header-left">
+                        <span class="close" id="close">&times;</span>
+                        <h2 style="text-align:center">Refund Information</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Client Name:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Booking.Name
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Client Surname:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Booking.Surname
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Client Email:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Booking.Email
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Reason:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Reason
+                            </div>
+                        </div>
+                        @if (item.Status == "Declined")
+                        {
+                            <div class="row" style="padding-bottom:2%">
+                                <div class="col-md-6">
+                                    <strong>Decline Reason:</strong>
+                                </div>
+                                <div class="col-md-6 ">
+                                    @item.DeclineReason
+                                </div>
+                            </div>
+                        }
+
+                        @if (item.Status == "Pending")
+                        {
+                            <div class="modal-footer">
+                                <a onclick="location.href='@Url.Action(actionName: "CreatePayment", controllerName: "PayPal", routeValues: new { Payment = "Refund", cost = item.tobePaid,refundId=item.RefundId })'" class="btn btn-primary"><i class="fa fa-paypal"></i>Pay Refund</a>
+                                <a onclick="Decline(@item.BookingId)" class="btn btn-danger"><i class="fa fa-ban"></i>Decline</a>
+                            </div>
+                        }
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Booking.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefundDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefundFee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tobePaid)
+                </td>
+                <td>
+
+                    <a class="btn btn-primary open-reviewModal-btn" data-doctor-id="@item.BookingId"><i class="fa fa-list-alt"></i>Review</a>
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.RefundId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.RefundId })
+
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>
+    <script>
+function Decline(id) {
+    var reason = prompt("Please enter the reason for declining:");
+    if (reason !== null) {
+        // User entered a reason
+        alertify.confirm('Car Hire', 'Are you sure you want to decline this request with the reason: ' + reason, function () {
+            // Pass the reason as a parameter to the Cancel action in your controller
+            window.location.href = '@Url.Action("Decline", "Refunds")/' + id + '?reason=' + encodeURIComponent(reason);
+            }, null);
+            }
+            }
+    </script>
+
+    <script>
+        // Get all the buttons with the class "open-reviewModal-btn"
+        var buttons = document.querySelectorAll(".open-reviewModal-btn");
+        var modal = document.getElementById("myModal");
+
+        // Attach click event listeners to each button
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                modal.style.display = "block";
+            });
+        });
+
+        // Get the close button
+        var closeButton = document.getElementById("close");
+
+        // Attach click event listener to the close button
+        closeButton.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+    </script>

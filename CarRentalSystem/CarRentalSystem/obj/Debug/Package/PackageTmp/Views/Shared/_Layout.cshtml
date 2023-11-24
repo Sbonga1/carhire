@@ -1,0 +1,554 @@
+﻿@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                     @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Car Rental System</title>
+
+    <link href="//fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;700;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/style-liberty.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <section class="w3l-top-header">
+        <div class="container">
+            <div class="top-content-w3ls d-flex align-items-center justify-content-between">
+                <div class="top-headers">
+                    <ul>
+                        <li>
+                            <i class="fa fa-map-marker-alt"></i><a href="#">Durban, 1145, Lancers road, 4001.</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i><a href="#">(+27) 34 223 4567</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope"></i><a href="#">dbnRenatls@outlook.com</a>
+                        </li> 
+                        <li>
+                            <i class="fa fa-user"></i><a href="#">@User.Identity.Name</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="top-headers top-headers-2">
+                    <ul>
+                        <li>
+                            <a href="#facebook"><span class="fab fa-facebook-f"></span></a>
+                        </li>
+                        <li>
+                            <a href="#twitter"><span class="fab fa-twitter"></span></a>
+                        </li>
+                        <li>
+                            <a href="#instagram"><span class="fab fa-instagram"></span></a>
+                        </li>
+                        <li class=" mr-0">
+                            <a href="#linkedin"><span class="fab fa-linkedin-in"></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header id="site-header" class="fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg stroke">
+                <h1>
+                    <a class="navbar-brand" href="index.html">
+                        <span class="fa fa-lightbulb"></span> CAR RENTAL
+                    </a>
+                </h1>
+
+                <button class="navbar-toggler collapsed bg-gradient" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                </button>
+                @if (Request.IsAuthenticated)
+                {
+
+
+                    if (User.IsInRole("Admin"))
+                    {
+                        <div class="collapse navbar-collapse" id="navbzarTogglerDemo02">
+                            <ul class="navbar-nav" style="padding-left:5%">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="@Url.Action("Index","Home")">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","Cars")">Cars</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","Bookings")">Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","CarInspections")">Inspections</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","AssignInspectors")">Assignemnts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","Refunds")">Refunds</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","Invoices")">Invoices</a>
+                                </li>
+                                
+                                
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+                                }
+
+
+                                <ul class="header-search">
+                                    <li class="nav-item search-right">
+                                        <a href="#search" class="btn search-btn btn-light" title="search"><span class="fas fa-search" aria-hidden="true"></span></a>
+                                        <div id="search" class="pop-overlay">
+                                            <div class="popup">
+                                                <h3 class="title-w3l two mb-4 text-left">Search Here</h3>
+                                                <form action="#" method="GET" class="search-box d-sm-flex position-relative">
+                                                    <input type="search" placeholder="Enter Keyword here" name="search" required="required" autofocus="">
+                                                    <button type="submit" class="btn btn-style btn-primary"> Search</button>
+                                                </form>
+                                            </div>
+                                            <a class="close" href="#close">×</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+
+                    }
+                    else if (User.IsInRole("Inspector"))
+                    {
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                            <ul class="navbar-nav" style="padding-left:20%">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="@Url.Action("Index","Home")">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("MyAssignments","AssignInspectors")">Assignemnts</a>
+                                </li>
+
+                                @*<li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index","CarReturns")">Returns</a>
+        </li>*@
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("MyInspections","CarInspections")">Inspections</a>
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li> <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li><li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li> <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                
+                                
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+                                }
+
+
+                                <ul class="header-search">
+                                    <li class="nav-item search-right">
+                                        <a href="#search" class="btn search-btn btn-light" title="search"><span class="fas fa-search" aria-hidden="true"></span></a>
+                                        <div id="search" class="pop-overlay">
+                                            <div class="popup">
+                                                <h3 class="title-w3l two mb-4 text-left">Search Here</h3>
+                                                <form action="#" method="GET" class="search-box d-sm-flex position-relative">
+                                                    <input type="search" placeholder="Enter Keyword here" name="search" required="required" autofocus="">
+                                                    <button type="submit" class="btn btn-style btn-primary"> Search</button>
+                                                </form>
+                                            </div>
+                                            <a class="close" href="#close">×</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                            <ul class="navbar-nav" style="padding-left:15%">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="@Url.Action("Index","Home")">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Brochure","Cars")">Brochure</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("MyBookings","Bookings")">Bookings</a>
+                                </li>
+
+                                @*<li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","CarReturns")">Returns</a>
+                                </li>*@
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("MyRefunds","Refunds")">Refunds</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("MyInvoices","Invoices")">Invoices</a>
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                <li class="nav-item" align="left">
+                                </li>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+                                }
+
+
+                                <ul class="header-search">
+                                    <li class="nav-item search-right">
+                                        <a href="#search" class="btn search-btn btn-light" title="search"><span class="fas fa-search" aria-hidden="true"></span></a>
+                                        <div id="search" class="pop-overlay">
+                                            <div class="popup">
+                                                <h3 class="title-w3l two mb-4 text-left">Search Here</h3>
+                                                <form action="#" method="GET" class="search-box d-sm-flex position-relative">
+                                                    <input type="search" placeholder="Enter Keyword here" name="search" required="required" autofocus="">
+                                                    <button type="submit" class="btn btn-style btn-primary"> Search</button>
+                                                </form>
+                                            </div>
+                                            <a class="close" href="#close">×</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+                    }
+
+
+
+
+
+
+
+                }
+                else
+                {
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active" style="padding-left:30%">
+                                <a class="nav-link" href="@Url.Action("Index","Home")">Home <span class="sr-only">(current)</span></a>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Brochure","Cars")">Brochure</a>
+                            </li>
+                            <li class="nav-item" style="padding-left:100%">
+                                <a class="nav-link" href="@Url.Action("Register", "Account")">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+                            </li>
+
+                            <ul class="header-search">
+                                <li class="nav-item search-right">
+                                    <a href="#search" class="btn search-btn btn-light" title="search"><span class="fas fa-search" aria-hidden="true"></span></a>
+                                    <div id="search" class="pop-overlay">
+                                        <div class="popup">
+                                            <h3 class="title-w3l two mb-4 text-left">Search Here</h3>
+                                            <form action="#" method="GET" class="search-box d-sm-flex position-relative">
+                                                <input type="search" placeholder="Enter Keyword here" name="search" required="required" autofocus="">
+                                                <button type="submit" class="btn btn-style btn-primary"> Search</button>
+                                            </form>
+                                        </div>
+                                        <a class="close" href="#close">×</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+
+                }
+
+
+                <!-- toggle switch for light and dark theme -->
+                <div class="cont-ser-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+            </nav>
+        </div>
+    </header>
+    <!--//header-->
+    @RenderBody()
+    @if (ViewBag.Title != "InspectorsProfiles")
+    {
+
+    <!-- footer block -->
+    <footer class="w3l-footer-29-main">
+        <div class="footer-29 pt-5 pb-4">
+            <div class="container pt-md-4">
+                <div class="row footer-top-29">
+                    <div class="col-lg-4 col-md-6 footer-list-29">
+                        <h6 class="footer-title-29">Contact Info </h6>
+                        <p class="mb-2 pe-xl-5">
+                            Address : Durban, 1145, Lancers road, 4001.
+                        </p>
+                        <p class="mb-2">Phone Number : <a href="tel:+1(21) 234 4567">+1(21) 234 4567</a></p>
+                        <p class="mb-2">Email : <a href="mailto:info@example.com">info@example.com</a></p>
+                        <p class="mb-2">Support : <a href="mailto:support@example.com">support@example.com</a></p>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-6 footer-list-29 mt-md-0 mt-4">
+                        <ul>
+                            <h6 class="footer-title-29">Quick Links</h6>
+                            <li><a href="about.html">About Company</a></li>
+                            <li><a href="#blog">Blog Posts</a></li>
+                            <li><a href="services.html">Our Services</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="#shortcodes">Shortcodes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-6 ps-lg-5 ps-lg-4 footer-list-29 mt-md-0 mt-4">
+                        <ul>
+                            <h6 class="footer-title-29">Explore</h6>
+                            <li><a href="#blog">Blog Posts</a></li>
+                            <li><a href="#privacy">Privacy policy</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="#license">License & uses</a></li>
+                            <li><a href="#blog">View Articles</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 footer-list-29 mt-lg-0 mt-4 ps-lg-5">
+                        <h6 class="footer-title-29">Subscribe</h6>
+                        <form action="#" class="subscribe d-flex" method="post">
+                            <input type="email" name="email" placeholder="Email Address" required="">
+                            <button class="button-style">
+                                <span class="fa fa-paper-plane"
+                                      aria-hidden="true"></span>
+                            </button>
+                        </form>
+                        <p class="mt-4">Subscribe to our mailing list and get updates to your email inbox.</p>
+                    </div>
+                </div>
+                <!-- copyright -->
+                <p class="copy-footer-29 text-center mt-5 pb-2">
+                    @DateTime.Now.Year
+
+                </p>
+                <!-- //copyright -->
+            </div>
+        </div>
+    </footer>
+    }
+    <!-- //footer block -->
+    <!-- Js scripts -->
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+        <span class="fas fa-level-up-alt" aria-hidden="true"></span>
+    </button>
+    <script>
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }</script>
+    <!-- //move top -->
+    <!-- common jquery plugin -->
+    <script src="~/assets/js/jquery-3.3.1.min.js"></script>
+    <!-- //common jquery plugin -->
+    <!-- theme switch js (light and dark)-->
+    <script src="~/assets/js/theme-change.js"></script>
+    <!-- //theme switch js (light and dark)-->
+    <!--/stats-number-counter-->
+    <script src="~/assets/js/jquery.waypoints.min.js"></script>
+    <script src="~/assets/js/jquery.countup.js"></script>
+    <script>$('.counter').countUp();</script>
+    <!--//stats-number-counter-->
+    <!--/owlcarousel-->
+    <script src="~/assets/js/owl.carousel.js"></script>
+    <!-- //tesimonials-->
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo1").owlCarousel({
+                loop: true,
+                nav: false,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false
+                    },
+                    736: {
+                        items: 1,
+                        nav: false
+                    }
+                }
+            })
+        })</script>
+    <!-- //tesimonials-->
+    <!-- MENU-JS -->
+    <script>
+        $(window).on("scroll", function () {
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 80) {
+                $("#site-header").addClass("nav-fixed");
+            } else {
+                $("#site-header").removeClass("nav-fixed");
+            }
+        });
+
+        //Main navigation Active Class Add Remove
+        $(".navbar-toggler").on("click", function () {
+            $("header").toggleClass("active");
+        });
+        $(document).on("ready", function () {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+            $(window).on("resize", function () {
+                if ($(window).width() > 991) {
+                    $("header").removeClass("active");
+                }
+            });
+        });</script>
+    <!-- //MENU-JS -->
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function () {
+            $('.navbar-toggler').click(function () {
+                $('body').toggleClass('noscroll');
+            })
+        });</script>
+    <!-- //disable body scroll which navbar is in active -->
+    <!--bootstrap-->
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/alertify.min.js"></script>
+    <!-- //bootstrap-->
+    <!-- //Js scripts -->
+    <script>
+
+$(function () {
+    var successMessage = '@TempData["Message"]';
+    if (successMessage !== '') {
+        alertify.success(successMessage);
+    }
+});
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+

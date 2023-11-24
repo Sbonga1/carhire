@@ -1,0 +1,66 @@
+﻿@model CarRentalSystem.Models.CarInspection
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CarInspection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TireCondition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TireCondition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExteriorCondition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExteriorCondition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InteriorCondition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InteriorCondition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestDrive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestDrive)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

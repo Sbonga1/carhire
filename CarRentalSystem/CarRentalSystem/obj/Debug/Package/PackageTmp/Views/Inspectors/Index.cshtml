@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Inspector>
+
+@{
+    ViewBag.Title = "InspectorsProfiles";
+}
+<head>
+    <link href="~/Content/Profile.css" rel="stylesheet" />
+
+</head>
+
+<div style="padding:5%;padding-top:2%">
+    <h2>Index</h2>
+    <article class="profile">
+        @foreach (var item in Model)
+        {
+
+
+
+
+            <div class="profile-image">
+                <img src="/@item.Picture" />
+            </div>
+            <h2 class="profile-username">@item.Name @item.Surname</h2>
+            <small class="profile-user-handle">@item.Email</small>
+            <div class="profile-actions">
+
+                @if (Session["bookID"] != null)
+                {
+                    <button class="btn btn-light" onclick="Assign(@item.InspId,'@item.Surname')">Assign</button>
+                }
+                @*<button class="btn btn--icon">
+                    <i class="ph-export"></i>
+                </button>
+                <button class="btn btn--icon">
+                    <i class="ph-dots-three-outline-fill"></i>
+                </button>*@
+            </div>
+
+
+
+
+
+        }
+    </article>
+    </div>
+
+    <script>
+
+    function Assign(id, surname) {
+        alertify.confirm('Assign Inspector', 'Are you sure you want to Assign Inspector ' + surname + ' to the  request?', function () {
+            var url = '@Url.Action("AssignInspector", "Inspectors", new { inspId = "REPLACE_ID" })';
+            url = url.replace("REPLACE_ID", id);
+            window.location.href = url;
+        }, null);
+    }
+    </script>
+
+

@@ -1,0 +1,116 @@
+﻿@model CarRentalSystem.Models.CarInspection
+
+@{
+    ViewBag.Title = "Create";
+}
+<div style="padding:5%;padding-top:2%">
+    <h2>Create</h2>
+    <div style="padding-left:6%">
+        <h4>CarInspection</h4>
+    </div>
+
+    <hr />
+    <div style="padding-left:14%">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div style="padding-left:15px">Are there any dents?</div>
+                    <div class="col-md-10">
+                        <select name="Dents" id="Dents" class="form-control" style="width:35%">
+                            <option value="" class="Dents">---Please Select an option---</option>
+                            <option value="YES" class="Dents">YES</option>
+                            <option value="NO" class="Dents">NO</option>
+
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Dents, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div style="padding-left:15px">Are the tires in a good condition?</div>
+                    <div class="col-md-10">
+                        <select name="TireCondition" id="TireCondition" class="form-control" style="width:35%">
+                            <option value="" class="TireCondition">---Please Select an option---</option>
+                            <option value="YES" class="TireCondition">YES</option>
+                            <option value="NO" class="TireCondition">NO</option>
+
+                        </select>
+                        @Html.ValidationMessageFor(model => model.TireCondition, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div style="padding-left:15px">Is the Exterior in a good condition?</div>
+                    <div class="col-md-10">
+                        <select name="ExteriorCondition" id="ExteriorCondition" class="form-control" style="width:35%">
+                            <option value="" class="ExteriorCondition">---Please Select an option---</option>
+                            <option value="YES" class="ExteriorCondition">YES</option>
+                            <option value="NO" class="ExteriorCondition">NO</option>
+
+                        </select>
+                        @Html.ValidationMessageFor(model => model.ExteriorCondition, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div style="padding-left:15px">Is the Interior in a good condition?</div>
+                    <div class="col-md-10">
+                        <select name="InteriorCondition" id="InteriorCondition" class="form-control" style="width:35%">
+                            <option value="" class="InteriorCondition">---Please Select an option---</option>
+                            <option value="YES" class="InteriorCondition">YES</option>
+                            <option value="NO" class="InteriorCondition">NO</option>
+
+                        </select>
+                        @Html.ValidationMessageFor(model => model.InteriorCondition, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div style="padding-left:15px">Test drive passed?</div>
+                    <div class="col-md-10">
+                        <select name="TestDrive" id="TestDrive" class="form-control" style="width:35%">
+                            <option value="" class="TestDrive">---Please Select an option---</option>
+                            <option value="YES" class="TestDrive">YES</option>
+                            <option value="NO" class="TestDrive">NO</option>
+
+                        </select>
+                        @Html.ValidationMessageFor(model => model.TestDrive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CarMileage, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CarMileage, new { htmlAttributes = new { @class = "form-control", @style = "width:35%" } })
+                        @Html.ValidationMessageFor(model => model.CarMileage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FuelAmt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FuelAmt, new { htmlAttributes = new { @class = "form-control", @style = "width:35%" } })
+                        @Html.ValidationMessageFor(model => model.FuelAmt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" style = "width:35%" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        
+        </div>
+        </div>

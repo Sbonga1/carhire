@@ -1,0 +1,83 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Car>
+@using CarRentalSystem.Models
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    ViewBag.Title = "Brochure";
+}
+
+
+
+}
+
+<!-- Blog Section -->
+<section class="w3l-blog">
+    <div class="blog py-5" id="Newsblog">
+        <div class="container py-lg-5 py-md-4 py-2">
+            <div class="text-center mb-sm-5 mb-4">
+                <h5 class="w3l-title-small mb-1">Brochure</h5>
+                <h3 class="w3l-title-main">Our Cars</h3>
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 item">
+
+                        <div class="card">
+                            <div class="card-header p-0 position-relative">
+                                <a href="#blog-single" class="zoom d-block">
+                                    <img class="card-img-bottom d-block" src="/@item.Picture"
+                                         alt="Card image cap">
+                                </a>
+                                <div class="date">
+                                    <p>@item.Name  @item.Model</p>
+                                </div>
+                            </div>
+                            <div class="card-body blog-details">
+                                <div class="price-review mb-1 align-items-center">
+                                    <p>Mileage: @item.Mileage km</p>
+                                    <p>Year: @item.Year.Year</p>
+                                    @{ double price = item.Price * 24;}
+                                    <p>Rental Rate(day): R @price</p>
+                                    @{ double distRate = item.DistPrice * 24;}
+                                    <p>Rental Rate(24km): R @distRate</p>
+                                    @{double fprice = price + distRate;}
+                                    <p>Price (24h/24km): R @fprice</p>
+
+
+                                </div>
+ 
+
+                             </div>
+ 
+                             <div class="card-footer">
+                                 <div align="center">
+                                     @if (!User.IsInRole("Admin") && !User.IsInRole("Inspector"))
+                                     {
+                                         if (Request.IsAuthenticated)
+                                         {
+                                             var booking = db.Bookings.Where(x => x.Email == User.Identity.Name && x.Status != "Settled" && x.Status != "Cancelled" && x.Status != "Declined").FirstOrDefault();
+                                             if (booking == null)
+                                             {
+                                                 <button class="btn btn-primary" onclick="location.href='@Url.Action(actionName: "Create", controllerName: "Bookings", routeValues: new { CarId = item.CarId })'">Hire Car</button>
+
+                                             }
+
+                                         }
+                                         else
+                                         {
+                                             <button class="btn btn-primary" onclick="location.href='@Url.Action(actionName: "Login", controllerName: "Account")'">Login to Hire Car</button>
+
+                                         }
+                                     }
+
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //Blog Section -->

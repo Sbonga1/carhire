@@ -1,0 +1,58 @@
+﻿@using CarRentalSystem.Models
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    ViewBag.Title = "Home Page";
+}
+
+
+<!-- banner section -->
+<section id="home" class="w3l-banner py-5">
+    <div class="container py-lg-5 py-md-4">
+        <div class="py-lg-5 py-4">
+            <div class="banner-info-grid">
+                <h3 class="mb-4"><sup>the</sup> Best Cars.</h3>
+                <p>
+                    Driving Your Dreams, One Rental at a Time!
+                </p>
+                @if (!Request.IsAuthenticated)
+                {
+                    <a class="btn btn-secondary btn-style mt-5 me-2" href="@Url.Action("Login", "Account")"> Login </a>
+                    <a class="btn btn-style transparent-btn mt-5" href="@Url.Action("Register", "Account")"> Register </a>
+                }
+                else
+                {
+                    if (User.IsInRole("Inspector"))
+                    {
+                        var inspector = db.Inspectors.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                        if (inspector == null)
+                        {
+                            <a class="btn btn-secondary btn-style mt-5 me-2" href="@Url.Action("Create","Inspectors")"> Update Profile </a>
+
+                        }
+
+                    }
+                    else if (!User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-secondary btn-style mt-5 me-2" href="@Url.Action("Brochure","Cars")"> View Brochure </a>
+
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-secondary btn-style mt-5 me-2" href="@Url.Action("Create","Users")"> Add Staff </a>
+
+                    }
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a class="btn btn-style transparent-btn mt-5" href="javascript:document.getElementById('logoutForm').submit()"> Logout </a>
+
+                    }
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //banner section -->

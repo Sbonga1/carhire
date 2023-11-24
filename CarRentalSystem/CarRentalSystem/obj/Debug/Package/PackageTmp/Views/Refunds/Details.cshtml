@@ -1,0 +1,82 @@
+﻿@model CarRentalSystem.Models.Refund
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Refund</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeclineReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeclineReason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefundDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefundDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefundStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefundStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emailaddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emailaddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefundFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefundFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tobePaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tobePaid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RefundId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

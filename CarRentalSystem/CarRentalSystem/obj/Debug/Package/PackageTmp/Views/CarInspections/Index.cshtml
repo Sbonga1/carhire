@@ -1,0 +1,155 @@
+﻿@model IEnumerable<CarRentalSystem.Models.CarInspection>
+@using CarRentalSystem.Models
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    
+    ViewBag.Title = "Index";
+}
+<div style="padding:5%;padding-top:2%">
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TireCondition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExteriorCondition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InteriorCondition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestDrive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+        {
+            
+
+        <div class="modal details-modal" id="myModal">
+            <div class="modal-content">
+                <div class="modal-header-left">
+                    <span class="close" id="close">&times;</span>
+                    <h2 style="text-align:center">Inspection Result</h2>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Time Travelled:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.timeTravelled
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Extra Time:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.Extratime
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>kilometres Travelled:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.kmtravelled
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Extra kilometres:</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.extraKm
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:2%">
+                        <div class="col-md-6">
+                            <strong>Short fuel(l):</strong>
+                        </div>
+                        <div class="col-md-6 ">
+                            @item.ShortFuel
+                        </div>
+                    </div>
+
+
+
+                </div>
+                    
+
+            </div>
+        </div>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dents)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TireCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExteriorCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InteriorCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestDrive)
+            </td>
+            <td>
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+</div>
+<script>
+    // Get all the buttons with the class "open-reviewModal-btn"
+    var buttons = document.querySelectorAll(".open-reviewModal-btn");
+    var modal = document.getElementById("myModal");
+
+    // Attach click event listeners to each button
+    buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            modal.style.display = "block";
+        });
+    });
+
+    // Get the close button
+    var closeButton = document.getElementById("close");
+
+    // Attach click event listener to the close button
+    closeButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+
+</script>

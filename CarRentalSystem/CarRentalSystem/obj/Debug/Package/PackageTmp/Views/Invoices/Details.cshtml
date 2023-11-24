@@ -1,0 +1,74 @@
+﻿@model CarRentalSystem.Models.Invoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Penalty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Penalty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LatePaymentFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LatePaymentFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Car)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InvId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

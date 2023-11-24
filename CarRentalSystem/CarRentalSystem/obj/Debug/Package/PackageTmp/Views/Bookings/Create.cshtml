@@ -1,0 +1,342 @@
+﻿@model CarRentalSystem.Models.Booking
+@using CarRentalSystem.Models
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    ViewBag.Title = "Create";
+}
+<div style="padding:5%;padding-top:2%">
+
+
+    <h2>Create</h2>
+    <div style="padding-left:6%">
+        <h4>Booking</h4>
+    </div>
+
+    <hr />
+    <div style="padding-left:14%">
+        @*@if (TempData.ContainsKey("Message"))
+        {
+            <div class="alert alert-success" id="notification">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @TempData["Message"]
+            </div>
+        }*@
+
+        @using (Html.BeginForm("Create", "Bookings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+                                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @style = "width:100%", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdNumber, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.IdNumber, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+                                @Html.ValidationMessageFor(model => model.IdNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Destination, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control", @style = "width:80%" } })
+                                @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control", @style = "width:80%", @id = "ReturnDate" } })
+                                @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PickupDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PickupDate, new { htmlAttributes = new { @class = "form-control", @style = "width:80%", @id = "PickupDate" } })
+                                @Html.ValidationMessageFor(model => model.PickupDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ReturnTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ReturnTime, new { htmlAttributes = new { @class = "form-control", @style = "width:80%", @id = "ReturnTime" } })
+                                @Html.ValidationMessageFor(model => model.ReturnTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PickupTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PickupTime, new { htmlAttributes = new { @class = "form-control", @style = "width:80%", @id = "PickupTime" } })
+                                @Html.ValidationMessageFor(model => model.PickupTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control", @style = "width:80%", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DistCost, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DistCost, new { htmlAttributes = new { @class = "form-control", @style = "width:80%", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.DistCost, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FinalCost, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.FinalCost, new { htmlAttributes = new { @class = "form-control", @style = "width:80%", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.FinalCost, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div>
+                                <i class="fa fa-id-card"></i> License:
+                            </div>
+                            <div class="col-md-10">
+                                <input type="file" name="LicenseFile" id="LicenseFile" class="form-control" style="width:80%" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <div>
+                                <i class="fa fa-id-card"></i> ID Copy:
+                            </div>
+                            <div class="col-md-10">
+                                <input type="file" name="IdFile" id="IdFile" class="form-control" style="width:80%" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div>
+                                <i class="fa fa-money-bill"></i> Bank Statement:
+                            </div>
+                            <div class="col-md-10">
+                                <input type="file" name="BankStatFile" id="BankStatFile" class="form-control" style="width:80%" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div>
+                                <i class="fa fa-map"></i>Distance:
+                            </div>
+                            <div class="col-md-10">
+                                
+                                <input type="text" id="Distance" readonly>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                @{ string CarID = Session["CarId"] as string;
+                    int id = int.Parse(CarID);
+                    var car = db.Cars.Find(id);
+                    double Rate = car.Price;
+                    double DistRate = car.DistPrice;}
+                <input type="hidden" name="DistRate" id="DistRate" value="@DistRate">
+
+                <input type="hidden" name="Rate" id="Rate" value="@Rate">
+
+
+
+
+
+                <div class="form-group" style="padding-top:20px">
+                    <div style="padding-left:25%">
+
+                        <input type="submit" value="Create" class="btn btn-primary" style="width:40%" />
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+            
+        </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to calculate the number of hours between two datetime strings
+        function calculateHours(pickupDateTime, returnDateTime) {
+            const pickupDate = new Date(pickupDateTime);
+            const returnDate = new Date(returnDateTime);
+            const timeDifference = returnDate - pickupDate;
+            const hours = Math.floor(timeDifference / 1000 / 60 / 60);
+            return hours;
+        }
+
+        // Function to update the price based on the number of hours and hourly rate
+        function updatePrice() {
+            const pickupDateTime = $("#PickupDate").val() + " " + $("#PickupTime").val();
+            const returnDateTime = $("#ReturnDate").val() + " " + $("#ReturnTime").val();
+            var rate = $("#Rate").val()
+            const hourlyRate = rate;
+
+            const hours = calculateHours(pickupDateTime, returnDateTime);
+            if (hours <= 0) {
+                // Handle invalid date/time range
+                $("#Cost").val("Invalid date/time range");
+                $("#FinalCost").val("Invalid date/time range");
+            } else {
+                const price = hours * hourlyRate;
+                $("#Cost").val(price);
+                // Update the FinalCost by adding the distance cost and the cost
+                const distanceCost = parseFloat($("#DistCost").val()) || 0;
+                const finalCost = price + distanceCost;
+                $("#FinalCost").val(finalCost);
+            }
+        }
+
+        // Bind the updatePrice function to the change event of the return date and time fields
+        $("#ReturnDate, #ReturnTime").change(updatePrice);
+
+        // Trigger the updatePrice function initially
+        updatePrice();
+    });
+</script>
+<!-- Include the Google Maps JavaScript API with the Places library -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFafEnx9zdAVMUhFhLq_hB-zJWRvkctCM&libraries=places"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to calculate the distance between two locations
+        function calculateDistance() {
+            var origin = "7 Ritson Rd, Musgrave, Berea, 4001"; // Get the origin address
+            var destination = $("#Destination").val(); // Get the destination address
+            var service = new google.maps.DistanceMatrixService();
+            var distanceInput = $("#DistCost");
+            var kkmmInput = $("#Distance");
+            var distrate = $("#DistRate").val();
+            service.getDistanceMatrix(
+                {
+                    origins: [origin],
+                    destinations: [destination],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.METRIC
+                },
+                function (response, status) {
+                    if (status === google.maps.DistanceMatrixStatus.OK) {
+                        var distance = response.rows[0].elements[0].distance.text; // Get the distance in text format (e.g., "10 km")
+                        var distanceValue = parseFloat(distance.replace(" km", "").replace(",", "")); // Parse the distance to a numeric value
+                        // You can calculate the cost based on the distance and your pricing logic
+                        var cost = distanceValue * distrate;
+                        distanceInput.val(cost);
+                        kkmmInput.val(distance);
+
+                    } else {
+                        // Handle any errors that may occur during distance calculation
+                        distanceInput.val("Error calculating distance");
+                    }
+                }
+            );
+        }
+
+        // Bind the calculateDistance function to the change event of the pickup and destination address fields
+        $("#PickupAddress, #Destination").change(calculateDistance);
+
+        // Optionally, you can trigger the distance calculation when the page loads or when the user selects dates
+        // calculateDistance();
+    });
+</script>
+
+@*<script>
+     
+    $(function () {
+        var successMessage = '@TempData["Message"]';
+        if (successMessage !== '') {
+            alertify.success(successMessage);
+        }
+    });
+</script>*@

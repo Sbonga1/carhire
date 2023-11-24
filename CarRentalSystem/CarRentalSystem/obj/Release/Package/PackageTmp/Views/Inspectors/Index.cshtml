@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Inspector>
+
+@{
+    ViewBag.Title = "InspectorsProfiles";
+}
+<head>
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows cards to wrap to the next line when there's not enough horizontal space */
+            gap: 20px; /* Add some spacing between cards */
+        }
+        .profile-image img {
+            width: 180px; /* Set the desired width */
+            height: 180px; /* Set the desired height */
+        }
+
+    </style>
+    <link href="~/Content/Profile.css" rel="stylesheet" />
+
+</head>
+
+<div style="padding:5%;padding-top:2%">
+    <h2>Index</h2>
+    <div class="card-container">
+        @foreach (var item in Model)
+        {
+
+
+
+            <article class="profile">
+                <div class="profile-image">
+                    <img src="/@item.Picture" />
+                </div>
+                <h2 class="profile-username">@item.Name @item.Surname</h2>
+                <small class="profile-user-handle">@item.Email</small>
+                <div class="profile-actions">
+
+                    @if (Session["bookID"] != null)
+                    {
+                        <button class="btn btn-light" onclick="Assign(@item.InspId,'@item.Surname')">Assign</button>
+                    }
+                    @*<button class="btn btn--icon">
+                            <i class="ph-export"></i>
+                        </button>
+                        <button class="btn btn--icon">
+                            <i class="ph-dots-three-outline-fill"></i>
+                        </button>*@
+                </div>
+
+            </article>
+
+
+
+        }
+    </div>
+    </div>
+
+    <script>
+
+    function Assign(id, surname) {
+        alertify.confirm('Assign Inspector', 'Are you sure you want to Assign Inspector ' + surname + ' to the  request?', function () {
+            var url = '@Url.Action("AssignInspector", "Inspectors", new { inspId = "REPLACE_ID" })';
+            url = url.replace("REPLACE_ID", id);
+            window.location.href = url;
+        }, null);
+    }
+    </script>
+
+

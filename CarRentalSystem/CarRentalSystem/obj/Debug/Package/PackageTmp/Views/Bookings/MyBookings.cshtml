@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "MyBookings";
+}
+@model IEnumerable<CarRentalSystem.Models.Booking>
+<style>
+
+    /* Style for the modal overlay */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+
+    /* Style for the modal content */
+    .modal-content {
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%); /* Adjust the translateY value as needed */
+        padding: 20px;
+        max-width: 50%; /* Adjust the maximum width as needed */
+        max-height: 80%; /* Adjust the maximum height as needed */
+        overflow-y: auto; /* Enable scrolling if the content overflows */
+    }
+
+    /* Style for the close button */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Add additional styles for your modal content, buttons, and other elements as needed */
+    /* Customize fonts, colors, margins, padding, etc. */
+
+    /* Style for buttons within the modal */
+    .modal-content button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    /* Style for modal headings and text */
+    .modal-content h2 {
+        text-align: center;
+    }
+
+    /* Style for images within the modal */
+    .modal-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
+
+
+<div style="padding:5%;padding-top:2%">
+   
+    <h2>@ViewBag.Title</h2>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.Name)
+            </th>
+
+            <th>
+                <strong>PickUp</strong>
+            </th>
+
+            <th>
+                <strong>Return</strong>
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DistCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <div class="modal details-modal" id="myModal">
+                <div class="modal-content">
+                    <div class="modal-header-left">
+                        <span class="close" id="close">&times;</span>
+                        <h2 style="text-align:center">Request Information</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Client Name:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Name
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Client Surname:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Surname
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Client Email:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Email
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Id Number:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.IdNumber
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:2%">
+                            <div class="col-md-6">
+                                <strong>Destination:</strong>
+                            </div>
+                            <div class="col-md-6 ">
+                                @item.Destination
+                            </div>
+                        </div>
+
+                        @if (item.LicenseFile != null)
+                        {
+                            <div class="row" style="padding-bottom:1%">
+                                <div class="col-md-6">
+                                    <p><strong>@item.LicenseFile</strong></p>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a href="@Url.Action("DownloadLicensePdf", "Bookings", new { id = item.BookingId })" class="btn btn-primary"><i class="fa fa-download"></i>Download</a>
+                                </div>
+                            </div>
+                        }
+
+                        @if (item.IdFile != null)
+                        {
+                            <div class="row" style="padding-bottom:1%">
+                                <div class="col-md-6">
+                                    <p><strong>@item.IdFile</strong></p>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a href="@Url.Action("DownloadIdPdf", "Bookings", new { id = item.BookingId })" class="btn btn-primary"><i class="fa fa-download"></i>Download</a>
+                                </div>
+                            </div>
+                        }
+                        @if (item.BankStatName != null)
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>@item.BankStatName</strong></p>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a href="@Url.Action("DownloadBankStatementPdf", "Bookings", new { id = item.BookingId })" class="btn btn-primary"><i class="fa fa-download"></i>Download</a>
+
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    @if (item.Status != "Settled" && item.Status != "Cancelled" && item.Status != "Declined")
+                    {
+                        <div class="modal-footer">
+                            @if (item.Status == "Approved")
+                            {
+                                <a onclick="location.href='@Url.Action(actionName: "CreatePayment", controllerName: "PayPal", routeValues: new { Payment = "Initial" ,cost = item.FinalCost})'" class="btn btn-primary"><i class="fa fa-paypal"></i>Pay</a>
+                                <a onclick="Refund(@item.BookingId)" class="btn btn-danger"><i class="fa fa-ban"></i>Request Refund</a>
+
+                            }
+                            else
+                            {
+                                <a onclick="Cancel(@item.BookingId)" class="btn btn-danger"><i class="fa fa-ban"></i>Cancel</a>
+                            }
+
+
+
+
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickupDate) @Html.DisplayFor(modelItem => item.PickupTime)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate) @Html.DisplayFor(modelItem => item.ReturnTime)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DistCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+
+                <td>
+                    <button class="btn btn-primary open-reviewModal-btn" data-doctor-id="@item.BookingId"><i class="fa fa-list-alt"></i>More Info</button>
+
+                    @*<button class="btn btn-danger" onclick="location.href='@Url.Action(actionName: "Cancel", controllerName: "Bookings", routeValues: new { bookId = item.BookingId })'">Cancel</button>*@
+
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.BookingId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.BookingId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BookingId })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script>
+       function Cancel(id) {
+        alertify.confirm('Car Hire', 'Are you sure you want to cancel this request?', function () {
+            window.location.href = '@Url.Action("Cancel","Bookings")/' + id;
+        }, null);
+    }
+    function Refund(id) {
+        alertify.confirm('Car Hire', 'Are you sure you want to cancel this request and request refund?', function () {
+            window.location.href = '@Url.Action("Create","Refunds")/' + id;
+        }, null);
+    }
+
+   
+</script>
+<script>
+    // Get all the buttons with the class "open-reviewModal-btn"
+    var buttons = document.querySelectorAll(".open-reviewModal-btn");
+    var modal = document.getElementById("myModal");
+
+    // Attach click event listeners to each button
+    buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            modal.style.display = "block";
+        });
+    });
+
+    // Get the close button
+    var closeButton = document.getElementById("close");
+
+    // Attach click event listener to the close button
+    closeButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+
+</script>
+<script>
+    // Add an event listener to the close button
+    $(document).ready(function () {
+        $("#notification .close").on("click", function () {
+            $("#notification").alert("close"); // Close the alert
+        });
+    });
+</script>
